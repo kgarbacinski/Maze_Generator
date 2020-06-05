@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+import copy
 
 from constants import NO_COLS, NO_ROWS, WHITE, BLACK, GREEN, FIELD_WIDTH
 from Cell import Cell
@@ -10,7 +11,6 @@ class Generator:
         self.display = display
         self.cells = []
         self.stack = []
-
 
     def build_grid(self):
         x = y = 0
@@ -30,6 +30,10 @@ class Generator:
 
                 x += FIELD_WIDTH
 
+        pygame.display.update()
+
+    def draw_path(self, cell):
+        pygame.draw.rect(self.display, GREEN, (cell.x + FIELD_WIDTH/4 + 1, cell.y + FIELD_WIDTH/4 + 1, FIELD_WIDTH/2, FIELD_WIDTH/2))
         pygame.display.update()
 
     def clear_square(self, cell):
@@ -94,6 +98,7 @@ class Generator:
                 if rand_dir == "right":
                     next_cell = self.cells[row * NO_COLS + col + 1]
 
+                    next_cell.solution_cell = copy.copy(curr_cell)
                     self.del_right_wall(curr_cell)
                     next_cell.visited = True
                     self.stack.append(next_cell)
@@ -101,6 +106,7 @@ class Generator:
                 if rand_dir == "left":
                     next_cell = self.cells[row * NO_COLS + col - 1]
 
+                    next_cell.solution_cell = copy.copy(curr_cell)
                     self.del_left_wall(curr_cell)
                     next_cell.visited = True
                     self.stack.append(next_cell)
@@ -108,6 +114,7 @@ class Generator:
                 if rand_dir == "up":
                     next_cell = self.cells[(row - 1) * (NO_COLS) + col]
 
+                    next_cell.solution_cell = copy.copy(curr_cell)
                     self.del_up_wall(curr_cell)
                     next_cell.visited = True
                     self.stack.append(next_cell)
@@ -115,8 +122,16 @@ class Generator:
                 if rand_dir == "down":
                     next_cell = self.cells[(row + 1) * NO_COLS + col]
 
+                    next_cell.solution_cell = copy.copy(curr_cell)
                     self.del_down_wall(curr_cell)
                     next_cell.visited = True
                     self.stack.append(next_cell)
 
             self.clear_square(curr_cell)
+
+    def find_path(self, x, y):
+        cell = self.cells[NO_COLS * x + y]
+        while (cell != None):
+            self.draw_path(cell)
+            cell = cell.solution_cell
+            time.sleep(.5)
