@@ -23,7 +23,7 @@ def main():
     generator.build_grid()
     running = True
     while(running):
-        generator.generate()
+        generator.generate_maze(generator.cells[0])
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
