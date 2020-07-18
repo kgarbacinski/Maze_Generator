@@ -1,5 +1,12 @@
-Maze_Generator
+# Maze_Generator
 
-1. Maze_Generation algorithm based on DFS (Depth First Search), Graph Theory and Recursive Backtracking.
+# Introduction
+App for generating randomly-structured mazes with default x,y size. 
 
-Source: https://en.wikipedia.org/wiki/Maze_generation_algorithm
+# Tech-stack
+- Python 3.6+
+- DFS (Depth First Search algorithm)
+- Graph Theory & Recursive Backtracking
+
+# Source: 
+- https://en.wikipedia.org/wiki/Maze_generation_algorithm
