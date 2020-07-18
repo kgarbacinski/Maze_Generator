@@ -1,7 +1,7 @@
 # Maze_Generator
 
 # Introduction
-App for generating randomly-structured mazes with default x,y size. 
+App for generating randomly-structured mazes with custom x,y size. 
 
 # Tech-stack
 - Python 3.6+
